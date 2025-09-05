@@ -1,10 +1,10 @@
 const mongoose=require("mongoose");
 const LeadSchema=mongoose.Schema({
-   Name:{
+   name:{
         type:String,
         required:true
     },
-    Email:{
+    email:{
         type:String,
         required:true,
         unique:true

@@ -1,5 +1,5 @@
 const LeadModel = require("../Model/LeadSchema.js");
-
+const { generateToken } = require("./authController");
 // Helper to format lead object
 const formatLead = (lead) => {
   const { _id, __v, ...rest } = lead.toObject();
@@ -12,7 +12,13 @@ exports.createLead = async (req, res) => {
     const leadInfo = req.body;
     const newLead = new LeadModel(leadInfo);
     const saveLeadInfo = await newLead.save();
-    res.status(201).json(formatLead(saveLeadInfo));
+    const payload = { name: saveLeadInfo.name, email: saveLeadInfo.email };
+    const token = generateToken(payload);
+
+      res.status(201).json({
+      lead: formatLead(saveLeadInfo),
+      token,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -36,6 +42,14 @@ exports.getLeadById = async (req, res) => {
 
     const lead = await LeadModel.findById(id);
     if (!lead) return res.status(404).json({ message: "Lead not found" });
+
+    if (
+      lead.email !== req.user.email
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to view this lead" });
+    }
 
     res.status(200).json(formatLead(lead));
   } catch (err) {

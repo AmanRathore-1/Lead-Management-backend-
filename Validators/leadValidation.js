@@ -2,8 +2,8 @@ const { body, param } = require("express-validator");
 
 // Validation rules for creating a lead
 const createLeadValidation = [
-  body("Name").notEmpty().withMessage("Name is required"),
-  body("Email").isEmail().withMessage("Valid email is required"),
+  body("name").notEmpty().withMessage("Name is required"),
+  body("email").isEmail().withMessage("Valid email is required"),
   body("PhoneNO")
     .matches(/^\d{10}$/)
     .withMessage("Phone number must be 10 digits"),
