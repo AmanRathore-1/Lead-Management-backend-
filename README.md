@@ -6,6 +6,7 @@ This project provides APIs to **create, update, delete, and fetch leads** with i
 ---
 
 ## 🚀 Features
+- Uses jwtToken for CreateLead and GetLeadByid Routes to generta and validate tokens
 - Create new leads with validation (`express-validator`)
 - Fetch all leads or a single lead by ID
 - Update lead details (status, interest, etc.)
