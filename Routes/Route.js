@@ -12,9 +12,9 @@ const protect = require("../middlware/authMiddleware");
 
 // Routes
 router.post("/createLead",createLeadValidation, validateRequest, LeadController.createLead);
-router.get("/getallLead",protect, LeadController.getAllLeadInfo);
+router.get("/getallLead", LeadController.getAllLeadInfo);
 router.get("/getLead/:id",protect, idParamValidation, validateRequest, LeadController.getLeadById);
-router.put("/updateLead/:id",protect, updateLeadValidation, validateRequest, LeadController.updateLeadInfo);
-router.delete("/deleteLead/:id",protect, idParamValidation, validateRequest, LeadController.deleteLeadInfo);
+router.put("/updateLead/:id", updateLeadValidation, validateRequest, LeadController.updateLeadInfo);
+router.delete("/deleteLead/:id", idParamValidation, validateRequest, LeadController.deleteLeadInfo);
 
 module.exports = router;
